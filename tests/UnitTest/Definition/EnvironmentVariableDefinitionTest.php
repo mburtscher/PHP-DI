@@ -9,6 +9,7 @@
 
 namespace DI\Test\UnitTest\Definition;
 
+use DI\Definition\CacheableDefinition;
 use DI\Definition\EnvironmentVariableDefinition;
 use DI\Scope;
 
@@ -17,20 +18,50 @@ use DI\Scope;
  */
 class EnvironmentVariableDefinitionTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_getters()
+    /**
+     * @test
+     */
+    public function has_environment_variable()
     {
-        $definition = new EnvironmentVariableDefinition('foo', 'bar', false, 'default');
+        $definition = new EnvironmentVariableDefinition('foo');
+        $this->assertEquals('foo', $definition->getVariableName());
+    }
 
-        $this->assertEquals('foo', $definition->getName());
-        $this->assertEquals('bar', $definition->getVariableName());
+    /**
+     * @test
+     */
+    public function has_name()
+    {
+        $definition = new EnvironmentVariableDefinition('foo');
+        $definition->setName('bar');
+
+        $this->assertEquals('bar', $definition->getName());
+    }
+
+    /**
+     * @test
+     */
+    public function is_mandatory_by_default()
+    {
+        $definition = new EnvironmentVariableDefinition('foo');
         $this->assertFalse($definition->isOptional());
+    }
+
+    /**
+     * @test
+     */
+    public function can_be_optional()
+    {
+        $definition = new EnvironmentVariableDefinition('foo', true, 'default');
+
+        $this->assertTrue($definition->isOptional());
         $this->assertEquals('default', $definition->getDefaultValue());
     }
 
     /**
      * @test
      */
-    public function should_have_singleton_scope()
+    public function has_singleton_scope()
     {
         $definition = new EnvironmentVariableDefinition('foo', 'bar');
 
@@ -40,8 +71,8 @@ class EnvironmentVariableDefinitionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function should_be_cacheable()
+    public function is_cacheable()
     {
-        $this->assertInstanceOf('DI\Definition\CacheableDefinition', new EnvironmentVariableDefinition('foo', 'bar'));
+        $this->assertTrue(new EnvironmentVariableDefinition('foo') instanceof CacheableDefinition);
     }
 }

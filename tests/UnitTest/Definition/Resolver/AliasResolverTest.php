@@ -29,7 +29,7 @@ class AliasResolverTest extends \PHPUnit_Framework_TestCase
         ]);
         $resolver = new AliasResolver($container);
 
-        $value = $resolver->resolve(new AliasDefinition('foo', 'bar'));
+        $value = $resolver->resolve(new AliasDefinition('foo'));
 
         $this->assertEquals(42, $value);
     }
@@ -44,6 +44,6 @@ class AliasResolverTest extends \PHPUnit_Framework_TestCase
         $container = EasyMock::mock('Interop\Container\ContainerInterface');
         $resolver = new AliasResolver($container);
 
-        $resolver->resolve(new ValueDefinition('foo', 'bar'));
+        $resolver->resolve(new ValueDefinition('foo'));
     }
 }

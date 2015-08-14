@@ -23,27 +23,27 @@ class StringResolverTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function should_resolve_bare_strings()
+    public function resolves_bare_strings()
     {
         $container = EasyMock::mock('Interop\Container\ContainerInterface');
         $resolver = new StringResolver($container);
 
-        $definition = new StringDefinition('foo', 'bar');
+        $definition = new StringDefinition('foo');
 
-        $this->assertEquals('bar', $resolver->resolve($definition));
+        $this->assertEquals('foo', $resolver->resolve($definition));
     }
 
     /**
      * @test
      */
-    public function should_resolve_references()
+    public function resolves_references()
     {
         $container = EasyMock::mock('Interop\Container\ContainerInterface', [
             'get' => 'bar',
         ]);
         $resolver = new StringResolver($container);
 
-        $definition = new StringDefinition('foo', '{test}');
+        $definition = new StringDefinition('{test}');
 
         $this->assertEquals('bar', $resolver->resolve($definition));
     }
@@ -51,7 +51,7 @@ class StringResolverTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function should_resolve_multiple_references()
+    public function resolves_multiple_references()
     {
         $container = EasyMock::mock('Interop\Container\ContainerInterface');
         $container->expects($this->exactly(2))
@@ -60,7 +60,7 @@ class StringResolverTest extends \PHPUnit_Framework_TestCase
             ->willReturnOnConsecutiveCalls('/private/tmp', 'myapp-logs');
         $resolver = new StringResolver($container);
 
-        $definition = new StringDefinition('foo', '{tmp}/{logs}/app.log');
+        $definition = new StringDefinition('{tmp}/{logs}/app.log');
 
         $value = $resolver->resolve($definition);
 
@@ -70,16 +70,16 @@ class StringResolverTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \DI\DependencyException
-     * @expectedExceptionMessage Error while parsing string expression for entry 'foo': No entry or class found for 'test'
+     * @expectedExceptionMessage Error while parsing string expression '{test}': No entry or class found for 'test'
      */
-    public function should_throw_on_unknown_entry_name()
+    public function errors_on_unknown_entry_name()
     {
         $container = EasyMock::mock('Interop\Container\ContainerInterface', [
             'get' => new NotFoundException("No entry or class found for 'test'"),
         ]);
         $resolver = new StringResolver($container);
 
-        $resolver->resolve(new StringDefinition('foo', '{test}'));
+        $resolver->resolve(new StringDefinition('{test}'));
     }
 
     /**
@@ -87,7 +87,7 @@ class StringResolverTest extends \PHPUnit_Framework_TestCase
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage This definition resolver is only compatible with StringDefinition objects, DI\Definition\FactoryDefinition given
      */
-    public function should_error_with_unsupported_definitions()
+    public function errors_with_unsupported_definitions()
     {
         $container = EasyMock::mock('Interop\Container\ContainerInterface');
         $resolver = new StringResolver($container);

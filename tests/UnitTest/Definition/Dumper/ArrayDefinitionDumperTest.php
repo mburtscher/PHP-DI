@@ -23,7 +23,7 @@ class ArrayDefinitionDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function should_dump_array_definitions()
     {
-        $definition = new ArrayDefinition('foo', [
+        $definition = new ArrayDefinition([
             'hello',
             'world',
         ]);
@@ -42,7 +42,7 @@ class ArrayDefinitionDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function should_dump_array_with_keys()
     {
-        $definition = new ArrayDefinition('foo', [
+        $definition = new ArrayDefinition([
             'test' => 'hello',
         ]);
         $dumper = new ArrayDefinitionDumper();
@@ -59,7 +59,7 @@ class ArrayDefinitionDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function should_dump_array_containing_nested_definitions()
     {
-        $definition = new ArrayDefinition('foo', [
+        $definition = new ArrayDefinition([
             \DI\get('foo'),
             \DI\env('foo'),
         ]);
@@ -83,7 +83,7 @@ class ArrayDefinitionDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function should_only_accept_array_definitions()
     {
-        $definition = new ValueDefinition('foo', 'bar');
+        $definition = new ValueDefinition('foo');
         $dumper = new ArrayDefinitionDumper();
 
         $dumper->dump($definition);

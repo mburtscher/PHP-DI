@@ -80,6 +80,9 @@ class ArrayResolver implements DefinitionResolver
     {
         foreach ($values as $key => $value) {
             if ($value instanceof DefinitionHelper) {
+                $value = $value->getDefinition('');
+            }
+            if ($value instanceof Definition) {
                 $values[$key] = $this->resolveDefinition($value, $definition, $key);
             }
         }
@@ -87,10 +90,10 @@ class ArrayResolver implements DefinitionResolver
         return $values;
     }
 
-    private function resolveDefinition(DefinitionHelper $value, ArrayDefinition $definition, $key)
+    private function resolveDefinition(Definition $value, ArrayDefinition $definition, $key)
     {
         try {
-            return $this->definitionResolver->resolve($value->getDefinition(''));
+            return $this->definitionResolver->resolve($value);
         } catch (DependencyException $e) {
             throw $e;
         } catch (Exception $e) {

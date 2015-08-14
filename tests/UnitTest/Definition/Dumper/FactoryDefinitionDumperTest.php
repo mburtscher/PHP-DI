@@ -32,9 +32,7 @@ class FactoryDefinitionDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidDefinitionType()
     {
-        $definition = new ValueDefinition('foo', 'bar');
         $dumper = new FactoryDefinitionDumper();
-
-        $dumper->dump($definition);
+        $dumper->dump(new ValueDefinition('foo'));
     }
 }

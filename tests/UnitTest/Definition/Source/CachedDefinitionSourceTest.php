@@ -52,7 +52,8 @@ class CachedDefinitionSourceTest extends \PHPUnit_Framework_TestCase
 
         $source = new CachedDefinitionSource($cachedSource, $cache);
 
-        $expectedDefinition = new ValueDefinition('foo', 'bar');
+        $expectedDefinition = new ValueDefinition('bar');
+        $expectedDefinition->setName('foo');
         $cache->expects($this->once())
             ->method('save')
             ->with($this->isType('string'), $expectedDefinition);

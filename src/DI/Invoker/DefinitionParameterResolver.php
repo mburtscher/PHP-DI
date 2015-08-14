@@ -2,6 +2,7 @@
 
 namespace DI\Invoker;
 
+use DI\Definition\Definition;
 use DI\Definition\Helper\DefinitionHelper;
 use DI\Definition\Resolver\DefinitionResolver;
 use Invoker\ParameterResolver\ParameterResolver;
@@ -35,8 +36,10 @@ class DefinitionParameterResolver implements ParameterResolver
     ) {
         foreach ($resolvedParameters as &$parameter) {
             if ($parameter instanceof DefinitionHelper) {
-                $definition = $parameter->getDefinition('');
-                $parameter = $this->definitionResolver->resolve($definition);
+                $parameter = $parameter->getDefinition('');
+            }
+            if ($parameter instanceof Definition) {
+                $parameter = $this->definitionResolver->resolve($parameter);
             }
         }
 

@@ -9,6 +9,7 @@
 
 namespace DI\Test\UnitTest\Definition;
 
+use DI\Definition\CacheableDefinition;
 use DI\Definition\ValueDefinition;
 use DI\Scope;
 
@@ -17,20 +18,33 @@ use DI\Scope;
  */
 class ValueDefinitionTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_getters()
+    /**
+     * @test
+     */
+    public function has_value()
     {
-        $definition = new ValueDefinition('foo', 1);
+        $definition = new ValueDefinition(1);
 
-        $this->assertEquals('foo', $definition->getName());
         $this->assertEquals(1, $definition->getValue());
     }
 
     /**
      * @test
      */
-    public function should_have_singleton_scope()
+    public function has_name()
     {
-        $definition = new ValueDefinition('foo', 1);
+        $definition = new ValueDefinition(1);
+        $definition->setName('foo');
+
+        $this->assertEquals('foo', $definition->getName());
+    }
+
+    /**
+     * @test
+     */
+    public function has_singleton_scope()
+    {
+        $definition = new ValueDefinition(1);
 
         $this->assertEquals(Scope::SINGLETON, $definition->getScope());
     }
@@ -38,8 +52,8 @@ class ValueDefinitionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function should_not_be_cacheable()
+    public function is_not_cacheable()
     {
-        $this->assertNotInstanceOf('DI\Definition\CacheableDefinition', new ValueDefinition('foo', 'bar'));
+        $this->assertFalse(new ValueDefinition('foo') instanceof CacheableDefinition);
     }
 }

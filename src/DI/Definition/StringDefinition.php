@@ -31,17 +31,23 @@ class StringDefinition implements Definition
     private $expression;
 
     /**
-     * @param string $name       Entry name
      * @param string $expression
      */
-    public function __construct($name, $expression)
+    public function __construct($expression)
     {
-        $this->name = $name;
         $this->expression = $expression;
     }
 
     /**
-     * @return string Entry name
+     * {@inheritdoc}
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getName()
     {

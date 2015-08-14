@@ -72,9 +72,7 @@ class FactoryResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function should_only_resolve_factory_definitions()
     {
-        $definition = new ValueDefinition('foo', 'bar');
-
-        $this->resolver->resolve($definition);
+        $this->resolver->resolve(new ValueDefinition('foo'));
     }
 }
 

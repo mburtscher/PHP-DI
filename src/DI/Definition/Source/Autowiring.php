@@ -9,8 +9,8 @@
 
 namespace DI\Definition\Source;
 
+use DI\Definition\AliasDefinition;
 use DI\Definition\ObjectDefinition;
-use DI\Definition\EntryReference;
 use DI\Definition\ObjectDefinition\MethodInjection;
 
 /**
@@ -59,7 +59,7 @@ class Autowiring implements DefinitionSource
             $parameterClass = $parameter->getClass();
 
             if ($parameterClass) {
-                $parameters[$index] = new EntryReference($parameterClass->getName());
+                $parameters[$index] = new AliasDefinition($parameterClass->getName());
             }
         }
 

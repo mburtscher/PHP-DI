@@ -59,8 +59,8 @@ class StringResolver implements DefinitionResolver
                 return $this->container->get($matches[1]);
             } catch (NotFoundException $e) {
                 throw new DependencyException(sprintf(
-                    "Error while parsing string expression for entry '%s': %s",
-                    $definition->getName(),
+                    "Error while parsing string expression '%s': %s",
+                    $definition->getExpression(),
                     $e->getMessage()
                 ), 0, $e);
             }

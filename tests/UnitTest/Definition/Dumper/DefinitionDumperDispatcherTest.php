@@ -33,7 +33,7 @@ class DefinitionDumperDispatcherTest extends \PHPUnit_Framework_TestCase
      */
     public function should_register_definition_dumpers()
     {
-        $definition = new ValueDefinition('foo', 'bar');
+        $definition = new ValueDefinition('foo');
 
         $subDumper = $this->getMockForAbstractClass('DI\Definition\Dumper\DefinitionDumper');
         // Check that the sub-dumper is really called
@@ -56,7 +56,7 @@ class DefinitionDumperDispatcherTest extends \PHPUnit_Framework_TestCase
     {
         $dumper = new DefinitionDumperDispatcher();
 
-        $definition = new ValueDefinition('foo', 'bar');
+        $definition = new ValueDefinition('foo');
 
         $valueDumper = new ValueDefinitionDumper();
         $this->assertEquals($valueDumper->dump($definition), $dumper->dump($definition));
@@ -69,7 +69,7 @@ class DefinitionDumperDispatcherTest extends \PHPUnit_Framework_TestCase
     {
         $dumper = new DefinitionDumperDispatcher();
 
-        $definition = new AliasDefinition('foo', 'bar');
+        $definition = new AliasDefinition('foo');
 
         $aliasDumper = new AliasDefinitionDumper();
         $this->assertEquals($aliasDumper->dump($definition), $dumper->dump($definition));
@@ -135,6 +135,6 @@ class DefinitionDumperDispatcherTest extends \PHPUnit_Framework_TestCase
     public function should_only_accept_definitions_it_can_dump()
     {
         $dumper = new DefinitionDumperDispatcher([]);
-        $dumper->dump(new ValueDefinition('foo', 'bar'));
+        $dumper->dump(new ValueDefinition('foo'));
     }
 }

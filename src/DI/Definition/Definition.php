@@ -17,7 +17,14 @@ namespace DI\Definition;
 interface Definition
 {
     /**
-     * Returns the name of the entry in the container
+     * Set the name of the entry in the container.
+     *
+     * @param string $name
+     */
+    public function setName($name);
+
+    /**
+     * Returns the name of the entry in the container.
      *
      * @return string
      */

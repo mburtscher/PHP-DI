@@ -22,7 +22,7 @@ class StringDefinitionDumperTest extends \PHPUnit_Framework_TestCase
     {
         $dumper = new StringDefinitionDumper();
 
-        $this->assertEquals('foo/{bar}', $dumper->dump(new StringDefinition('foo', 'foo/{bar}')));
+        $this->assertEquals('foo/{bar}', $dumper->dump(new StringDefinition('foo/{bar}')));
     }
 
     /**
@@ -31,9 +31,7 @@ class StringDefinitionDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidDefinitionType()
     {
-        $definition = new ValueDefinition('foo', 'bar');
         $dumper = new StringDefinitionDumper();
-
-        $dumper->dump($definition);
+        $dumper->dump(new ValueDefinition('foo'));
     }
 }

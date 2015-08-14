@@ -51,7 +51,7 @@ class ArrayDefinitionExtension extends ArrayDefinition implements HasSubDefiniti
     {
         if (! $definition instanceof ArrayDefinition) {
             throw new DefinitionException(sprintf(
-                'Definition %s tries to add array entries but the previous definition is not an array',
+                "Definition '%s' tries to add array entries but the previous definition is not an array",
                 $this->getName()
             ));
         }

@@ -31,17 +31,23 @@ class AliasDefinition implements CacheableDefinition
     private $targetEntryName;
 
     /**
-     * @param string $name            Entry name
      * @param string $targetEntryName Name of the target entry
      */
-    public function __construct($name, $targetEntryName)
+    public function __construct($targetEntryName)
     {
-        $this->name = $name;
         $this->targetEntryName = $targetEntryName;
     }
 
     /**
-     * @return string Entry name
+     * {@inheritdoc}
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getName()
     {

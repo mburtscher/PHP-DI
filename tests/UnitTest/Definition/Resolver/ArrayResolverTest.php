@@ -42,7 +42,7 @@ class ArrayResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function should_resolve_array_of_values()
     {
-        $definition = new ArrayDefinition('foo', [
+        $definition = new ArrayDefinition([
             'bar',
             42,
         ]);
@@ -65,7 +65,7 @@ class ArrayResolverTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturnOnConsecutiveCalls(42, new \stdClass());
 
-        $definition = new ArrayDefinition('foo', [
+        $definition = new ArrayDefinition([
             'bar',
             \DI\get('bar'),
             \DI\object('bar'),
@@ -81,7 +81,7 @@ class ArrayResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function resolve_should_preserve_keys()
     {
-        $definition = new ArrayDefinition('foo', [
+        $definition = new ArrayDefinition([
             'hello' => 'world',
         ]);
 
@@ -96,7 +96,7 @@ class ArrayResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function should_only_resolve_array_definitions()
     {
-        $this->resolver->resolve(new ValueDefinition('foo', 'bar'));
+        $this->resolver->resolve(new ValueDefinition('foo'));
     }
 
     /**
@@ -110,8 +110,10 @@ class ArrayResolverTest extends \PHPUnit_Framework_TestCase
             ->method('resolve')
             ->willThrowException(new \Exception('This is a message'));
 
-        $this->resolver->resolve(new ArrayDefinition('foo', [
+        $definition = new ArrayDefinition([
             \DI\get('bar'),
-        ]));
+        ]);
+        $definition->setName('foo');
+        $this->resolver->resolve($definition);
     }
 }

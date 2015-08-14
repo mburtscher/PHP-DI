@@ -20,11 +20,11 @@ class ValueDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 {
     public function testStringValue()
     {
-        $definition = new ValueDefinition('foo', 'bar');
+        $definition = new ValueDefinition('foo');
         $dumper = new ValueDefinitionDumper();
 
         $str = 'Value (
-    string(3) "bar"
+    string(3) "foo"
 )';
 
         $this->assertEquals($str, $dumper->dump($definition));
@@ -32,7 +32,7 @@ class ValueDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
     public function testIntValue()
     {
-        $definition = new ValueDefinition('foo', 3306);
+        $definition = new ValueDefinition(3306);
         $dumper = new ValueDefinitionDumper();
 
         $str = 'Value (

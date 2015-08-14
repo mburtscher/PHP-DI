@@ -261,10 +261,8 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidDefinitionType()
     {
-        $definition = new ValueDefinition('foo', 'bar');
         $resolver = new ObjectDefinitionDumper();
-
-        $resolver->dump($definition);
+        $resolver->dump(new ValueDefinition('foo'));
     }
 }
 

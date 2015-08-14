@@ -48,7 +48,15 @@ class FactoryDefinition implements Definition
     }
 
     /**
-     * @return string Entry name.
+     * {@inheritdoc}
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getName()
     {

@@ -9,15 +9,12 @@
 
 namespace DI\Definition\ObjectDefinition;
 
-use DI\Definition\Definition;
-use DI\Scope;
-
 /**
  * Describe an injection in an object method.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-class MethodInjection implements Definition
+class MethodInjection
 {
     /**
      * @var string
@@ -74,21 +71,5 @@ class MethodInjection implements Definition
     {
         // In case of conflicts, the current definition prevails.
         $this->parameters = $this->parameters + $definition->parameters;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getScope()
-    {
-        return Scope::PROTOTYPE;
     }
 }

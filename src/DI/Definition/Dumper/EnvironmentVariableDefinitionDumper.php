@@ -11,7 +11,6 @@ namespace DI\Definition\Dumper;
 
 use DI\Debug;
 use DI\Definition\Definition;
-use DI\Definition\EntryReference;
 use DI\Definition\EnvironmentVariableDefinition;
 use DI\Definition\Helper\DefinitionHelper;
 
@@ -41,8 +40,11 @@ class EnvironmentVariableDefinitionDumper implements DefinitionDumper
             $defaultValue = $definition->getDefaultValue();
 
             if ($defaultValue instanceof DefinitionHelper) {
-                $nestedDefinition = Debug::dumpDefinition($defaultValue->getDefinition(''));
-                $defaultValueStr = $this->indent($nestedDefinition);
+                $defaultValue = $defaultValue->getDefinition('');
+            }
+
+            if ($defaultValue instanceof Definition) {
+                $defaultValueStr = $this->indent(Debug::dumpDefinition($defaultValue));
             } else {
                 $defaultValueStr = var_export($defaultValue, true);
             }

@@ -32,7 +32,7 @@ class DecoratorDefinitionDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidDefinitionType()
     {
-        $definition = new ValueDefinition('foo', 'bar');
+        $definition = new ValueDefinition('foo');
         $dumper = new DecoratorDefinitionDumper();
 
         $dumper->dump($definition);

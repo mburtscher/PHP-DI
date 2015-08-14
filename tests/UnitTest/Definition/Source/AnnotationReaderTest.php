@@ -9,7 +9,7 @@
 
 namespace DI\Test\UnitTest\Definition\Source;
 
-use DI\Definition\EntryReference;
+use DI\Definition\AliasDefinition;
 use DI\Definition\ObjectDefinition;
 use DI\Definition\Source\AnnotationReader;
 use DI\Scope;
@@ -36,7 +36,7 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase
 
         $property = $properties['property1'];
         $this->assertEquals('property1', $property->getPropertyName());
-        $this->assertEquals(new EntryReference('foo'), $property->getValue());
+        $this->assertEquals(new AliasDefinition('foo'), $property->getValue());
     }
 
     public function testUnannotatedProperty()
@@ -76,8 +76,8 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase
 
         $parameters = $constructorInjection->getParameters();
         $this->assertCount(2, $parameters);
-        $this->assertEquals(new EntryReference('foo'), $parameters[0]);
-        $this->assertEquals(new EntryReference('bar'), $parameters[1]);
+        $this->assertEquals(new AliasDefinition('foo'), $parameters[0]);
+        $this->assertEquals(new AliasDefinition('bar'), $parameters[1]);
     }
 
     public function testMethod1()
@@ -103,8 +103,8 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase
 
         $parameters = $methodInjection->getParameters();
         $this->assertCount(2, $parameters);
-        $this->assertEquals(new EntryReference('foo'), $parameters[0]);
-        $this->assertEquals(new EntryReference('bar'), $parameters[1]);
+        $this->assertEquals(new AliasDefinition('foo'), $parameters[0]);
+        $this->assertEquals(new AliasDefinition('bar'), $parameters[1]);
     }
 
     public function testMethod3()
@@ -119,7 +119,7 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase
         $parameters = $methodInjection->getParameters();
         $this->assertCount(2, $parameters);
 
-        $reference = new EntryReference('DI\Test\UnitTest\Definition\Source\Fixtures\AnnotationFixture2');
+        $reference = new AliasDefinition('DI\Test\UnitTest\Definition\Source\Fixtures\AnnotationFixture2');
         $this->assertEquals($reference, $parameters[0]);
         $this->assertEquals($reference, $parameters[1]);
     }
@@ -135,8 +135,8 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase
 
         $parameters = $methodInjection->getParameters();
         $this->assertCount(2, $parameters);
-        $this->assertEquals(new EntryReference('foo'), $parameters[0]);
-        $this->assertEquals(new EntryReference('bar'), $parameters[1]);
+        $this->assertEquals(new AliasDefinition('foo'), $parameters[0]);
+        $this->assertEquals(new AliasDefinition('bar'), $parameters[1]);
     }
 
     public function testMethod5()
@@ -152,7 +152,7 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $parameters);
 
         // Offset is 1, not 0, because parameter 0 wasn't defined
-        $this->assertEquals(new EntryReference('bar'), $parameters[1]);
+        $this->assertEquals(new AliasDefinition('bar'), $parameters[1]);
     }
 
     public function testUnannotatedMethod()
@@ -176,7 +176,7 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase
         $parameters = $methodInjection->getParameters();
         $this->assertCount(1, $parameters);
 
-        $this->assertEquals(new EntryReference('foo'), $parameters[0]);
+        $this->assertEquals(new AliasDefinition('foo'), $parameters[0]);
         $this->assertArrayNotHasKey(1, $parameters);
     }
 
@@ -213,7 +213,7 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase
         $parameters = $methodInjection->getParameters();
         $this->assertCount(1, $parameters);
         $this->assertEquals(
-            new EntryReference('DI\Test\UnitTest\Definition\Source\Fixtures\AnnotationFixture2'),
+            new AliasDefinition('DI\Test\UnitTest\Definition\Source\Fixtures\AnnotationFixture2'),
             $parameters[0]
         );
     }

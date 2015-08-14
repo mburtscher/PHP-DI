@@ -260,6 +260,7 @@ class Container implements ContainerInterface, FactoryInterface, \DI\InvokerInte
         }
 
         if ($value instanceof Definition) {
+            $value->setName($name);
             $this->setDefinition($name, $value);
         } else {
             $this->singletonEntries[$name] = $value;

@@ -21,9 +21,23 @@ class AliasDefinitionDumperTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function should_dump_alias_definitions()
+    public function dumps_alias_definition()
     {
-        $definition = new AliasDefinition('foo', 'bar');
+        $definition = new AliasDefinition('bar');
+        $dumper = new AliasDefinitionDumper();
+
+        $str = 'get(bar)';
+
+        $this->assertEquals($str, $dumper->dump($definition));
+    }
+
+    /**
+     * @test
+     */
+    public function should_dump_alias_definition_with_name()
+    {
+        $definition = new AliasDefinition('bar');
+        $definition->setName('foo');
         $dumper = new AliasDefinitionDumper();
 
         $str = 'get(foo => bar)';
@@ -38,7 +52,7 @@ class AliasDefinitionDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function should_only_accept_alias_definitions()
     {
-        $definition = new ValueDefinition('foo', 'bar');
+        $definition = new ValueDefinition('foo');
         $dumper = new AliasDefinitionDumper();
 
         $dumper->dump($definition);

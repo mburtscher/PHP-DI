@@ -109,15 +109,17 @@ class DefinitionArray implements DefinitionSource, MutableDefinitionSource
         if ($definition instanceof DefinitionHelper) {
             $definition = $definition->getDefinition($name);
         }
-        if (! $definition instanceof Definition && is_array($definition)) {
-            $definition = new ArrayDefinition($name, $definition);
+        if (is_array($definition)) {
+            $definition = new ArrayDefinition($definition);
         }
         if ($definition instanceof \Closure) {
             $definition = new FactoryDefinition($name, $definition);
         }
         if (! $definition instanceof Definition) {
-            $definition = new ValueDefinition($name, $definition);
+            $definition = new ValueDefinition($definition);
         }
+
+        $definition->setName($name);
 
         return $definition;
     }

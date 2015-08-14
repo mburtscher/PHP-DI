@@ -44,8 +44,11 @@ class ArrayDefinitionDumper implements DefinitionDumper
             $str .= '    ' . $key . ' => ';
 
             if ($value instanceof DefinitionHelper) {
-                $nestedDefinition = Debug::dumpDefinition($value->getDefinition(''));
-                $str .= $this->indent($nestedDefinition);
+                $value = $value->getDefinition('');
+            }
+
+            if ($value instanceof Definition) {
+                $str .= $this->indent(Debug::dumpDefinition($value));
             } else {
                 $str .= var_export($value, true);
             }

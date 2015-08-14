@@ -34,14 +34,14 @@ class EnvironmentVariableDefinitionDumperTest extends \PHPUnit_Framework_TestCas
     public function should_dump_env_variable_definitions()
     {
         $str = 'Environment variable (
-    variable = bar
+    variable = foo
     optional = no
 )';
 
         $this->assertEquals(
             $str,
             $this->dumper->dump(
-                new EnvironmentVariableDefinition('foo', 'bar')
+                new EnvironmentVariableDefinition('foo')
             )
         );
     }
@@ -52,7 +52,7 @@ class EnvironmentVariableDefinitionDumperTest extends \PHPUnit_Framework_TestCas
     public function should_dump_env_variable_definitions_with_default_value()
     {
         $str = 'Environment variable (
-    variable = bar
+    variable = foo
     optional = yes
     default = \'<default>\'
 )';
@@ -60,7 +60,7 @@ class EnvironmentVariableDefinitionDumperTest extends \PHPUnit_Framework_TestCas
         $this->assertEquals(
             $str,
             $this->dumper->dump(
-                new EnvironmentVariableDefinition('foo', 'bar', true, '<default>')
+                new EnvironmentVariableDefinition('foo', true, '<default>')
             )
         );
     }
@@ -71,15 +71,15 @@ class EnvironmentVariableDefinitionDumperTest extends \PHPUnit_Framework_TestCas
     public function should_dump_env_variable_definitions_with_reference_as_default_value()
     {
         $str = 'Environment variable (
-    variable = bar
+    variable = foo
     optional = yes
-    default = get(foo)
+    default = get(bar)
 )';
 
         $this->assertEquals(
             $str,
             $this->dumper->dump(
-                new EnvironmentVariableDefinition('foo', 'bar', true, \DI\get('foo'))
+                new EnvironmentVariableDefinition('foo', true, \DI\get('bar'))
             )
         );
     }
@@ -90,10 +90,10 @@ class EnvironmentVariableDefinitionDumperTest extends \PHPUnit_Framework_TestCas
     public function should_dump_env_variable_definitions_with_nested_definition_as_default_value()
     {
         $str = 'Environment variable (
-    variable = bar
+    variable = foo
     optional = yes
     default = Environment variable (
-        variable = foo
+        variable = bar
         optional = no
     )
 )';
@@ -101,7 +101,7 @@ class EnvironmentVariableDefinitionDumperTest extends \PHPUnit_Framework_TestCas
         $this->assertEquals(
             $str,
             $this->dumper->dump(
-                new EnvironmentVariableDefinition('foo', 'bar', true, \DI\env('foo'))
+                new EnvironmentVariableDefinition('foo', true, \DI\env('bar'))
             )
         );
     }

@@ -56,12 +56,12 @@ class ObjectDefinitionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \DI\Definition\Exception\DefinitionException
-     * @expectedExceptionMessage Container entry 'foo' extends entry 'bar' which is not an object
+     * @expectedExceptionMessage Container entry 'foo' extends entry '' which is not an object
      */
     public function should_only_accept_compatible_subdefinitions()
     {
         $definition = new ObjectDefinition('foo', 'bar');
-        $definition->setSubDefinition(new ValueDefinition('bar', 'Hello'));
+        $definition->setSubDefinition(new ValueDefinition('Hello'));
     }
 
     /**

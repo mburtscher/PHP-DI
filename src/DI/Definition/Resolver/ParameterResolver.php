@@ -9,6 +9,7 @@
 
 namespace DI\Definition\Resolver;
 
+use DI\Definition\Definition;
 use DI\Definition\ObjectDefinition;
 use DI\Definition\Exception\DefinitionException;
 use DI\Definition\Helper\DefinitionHelper;
@@ -78,13 +79,15 @@ class ParameterResolver
             }
 
             if ($value instanceof DefinitionHelper) {
-                $nestedDefinition = $value->getDefinition('');
+                $value = $value->getDefinition('');
+            }
 
+            if ($value instanceof Definition) {
                 // If the container cannot produce the entry, we can use the default parameter value
-                if ($parameter->isOptional() && !$this->definitionResolver->isResolvable($nestedDefinition)) {
+                if ($parameter->isOptional() && !$this->definitionResolver->isResolvable($value)) {
                     $value = $this->getParameterDefaultValue($parameter, $functionReflection);
                 } else {
-                    $value = $this->definitionResolver->resolve($nestedDefinition);
+                    $value = $this->definitionResolver->resolve($value);
                 }
             }
 

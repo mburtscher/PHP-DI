@@ -53,21 +53,27 @@ class EnvironmentVariableDefinition implements CacheableDefinition
     private $scope;
 
     /**
-     * @param string $name Entry name
-     * @param string $variableName The name of the environment variable
-     * @param boolean $isOptional Whether or not the environment variable definition is optional
-     * @param mixed $defaultValue The default value to use if the environment variable is optional and not provided
+     * @param string  $variableName The name of the environment variable
+     * @param boolean $isOptional   Whether or not the environment variable definition is optional
+     * @param mixed   $defaultValue The default value to use if the environment variable is optional and not provided
      */
-    public function __construct($name, $variableName, $isOptional = false, $defaultValue = null)
+    public function __construct($variableName, $isOptional = false, $defaultValue = null)
     {
-        $this->name = $name;
         $this->variableName = $variableName;
         $this->isOptional = $isOptional;
         $this->defaultValue = $defaultValue;
     }
 
     /**
-     * @return string Entry name
+     * {@inheritdoc}
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getName()
     {

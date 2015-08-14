@@ -9,6 +9,7 @@
 
 namespace DI\Test\UnitTest\Definition;
 
+use DI\Definition\CacheableDefinition;
 use DI\Definition\StringDefinition;
 use DI\Scope;
 
@@ -17,20 +18,33 @@ use DI\Scope;
  */
 class StringDefinitionTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_getters()
+    /**
+     * @test
+     */
+    public function has_expression()
     {
-        $definition = new StringDefinition('foo', 'bar');
+        $definition = new StringDefinition('foo');
 
-        $this->assertEquals('foo', $definition->getName());
-        $this->assertEquals('bar', $definition->getExpression());
+        $this->assertEquals('foo', $definition->getExpression());
     }
 
     /**
      * @test
      */
-    public function should_have_singleton_scope()
+    public function has_name()
     {
-        $definition = new StringDefinition('foo', 'bar');
+        $definition = new StringDefinition('aaa');
+        $definition->setName('foo');
+
+        $this->assertEquals('foo', $definition->getName());
+    }
+
+    /**
+     * @test
+     */
+    public function has_singleton_scope()
+    {
+        $definition = new StringDefinition('foo');
 
         $this->assertEquals(Scope::SINGLETON, $definition->getScope());
     }
@@ -38,8 +52,8 @@ class StringDefinitionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function should_not_be_cacheable()
+    public function is_not_cacheable()
     {
-        $this->assertNotInstanceOf('DI\Definition\CacheableDefinition', new StringDefinition('foo', 'bar'));
+        $this->assertFalse(new StringDefinition('foo') instanceof CacheableDefinition);
     }
 }
