@@ -10,9 +10,9 @@ use DI\Definition\Source\DefinitionFile;
 use DI\Definition\Source\DefinitionSource;
 use DI\Definition\Source\SourceChain;
 use DI\Proxy\ProxyFactory;
-use Doctrine\Common\Cache\Cache;
 use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Helper to create and configure a Container.
@@ -51,7 +51,7 @@ class ContainerBuilder
     private $ignorePhpDocErrors = false;
 
     /**
-     * @var Cache
+     * @var CacheItemPoolInterface
      */
     private $cache;
 
@@ -176,10 +176,10 @@ class ContainerBuilder
     /**
      * Enables the use of a cache for the definitions.
      *
-     * @param Cache $cache Cache backend to use
+     * @param CacheItemPoolInterface $cache Cache backend to use
      * @return ContainerBuilder
      */
-    public function setDefinitionCache(Cache $cache)
+    public function setDefinitionCache(CacheItemPoolInterface $cache)
     {
         $this->cache = $cache;
 
